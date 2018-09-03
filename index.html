@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <script src="jquery_3.3.1_jquery.min.js"></script>
+    <script>
+        function imprimirViaSistemaOperacional(url_arquivo, dados) {
+            var tela_impressao = window.open('about:blank');
+            
+            $.ajax({
+                url: url_arquivo,
+                type: "POST",
+                dataType: "html",
+                data: dados,
+                beforeSend: function() {
+                    //tb_show('', "images/loaders/loading.gif");
+                }
+            })
+            .done(function(html) {
+               
+                tela_impressao.document.write(html);
+                tela_impressao.print();
+                tela_impressao.window.close();
+                return;
+            })
+            .always(function() {
+                tb_remove();
+            });
+        }
+    </script>
+
+</head>
+<body>
+
+<div id="demo">
+<h1>Impressora</h1>
+<button type="button" onclick="imprimirViaSistemaOperacional('arquivo.html', null)">Imprimir</button>
+</div>
+
+</body>
+</html>
